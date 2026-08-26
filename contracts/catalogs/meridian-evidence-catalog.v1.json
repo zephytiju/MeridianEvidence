@@ -1,0 +1,53 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "formatVersion": "meridian-catalog-manifest.v1",
+  "catalogName": "evidence",
+  "packageName": "meridian-storage-evidence",
+  "packageVersion": "1.0.0",
+  "catalogContractVersion": "1.0.0",
+  "operations": [
+    {
+      "method": "append",
+      "operationContract": "meridian.evidence.append",
+      "operationVersion": "1.0.0",
+      "readOnly": false,
+      "idempotency": "conditional",
+      "guarantees": ["append-only"],
+      "minimumLimits": {}
+    },
+    {
+      "method": "create_resource",
+      "operationContract": "meridian.evidence.create_resource",
+      "operationVersion": "1.0.0",
+      "readOnly": false,
+      "idempotency": "always",
+      "guarantees": ["resource-lifecycle"],
+      "minimumLimits": {}
+    },
+    {
+      "method": "publish_schema",
+      "operationContract": "meridian.evidence.publish_schema",
+      "operationVersion": "1.0.0",
+      "readOnly": false,
+      "idempotency": "always",
+      "guarantees": ["schema-publication"],
+      "minimumLimits": {}
+    },
+    {
+      "method": "query",
+      "operationContract": "meridian.evidence.query",
+      "operationVersion": "1.0.0",
+      "readOnly": true,
+      "idempotency": "always",
+      "guarantees": ["scope-isolation"],
+      "minimumLimits": {}
+    }
+  ],
+  "extensions": {
+    "design.hldRevision": 60,
+    "design.catalogRevision": 72,
+    "dataFormat": "meridian-evidence-data.v1",
+    "profiles": ["telemetry", "audit", "lineage", "provenance"],
+    "observabilityFacadeOwner": "meridian-storage-plugin-observability"
+  }
+}

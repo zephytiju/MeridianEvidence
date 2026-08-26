@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.common.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "$defs": {
+    "correlation": {
+      "type": "object",
+      "properties": {
+        "traceId": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "spanId": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "requestId": { "$ref": "#/$defs/token" },
+        "executionId": { "$ref": "#/$defs/token" },
+        "operationFingerprint": { "$ref": "#/$defs/fingerprint" },
+        "correlationId": { "$ref": "#/$defs/token" }
+      },
+      "additionalProperties": false
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "jsonObject": {
+      "type": "object",
+      "maxProperties": 256,
+      "propertyNames": { "minLength": 1, "maxLength": 128 }
+    },
+    "reference": {
+      "type": "object",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/token" },
+        "value": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "version": { "$ref": "#/$defs/token" },
+        "digest": { "$ref": "#/$defs/fingerprint" }
+      },
+      "additionalProperties": false
+    },
+    "stringMap": {
+      "type": "object",
+      "maxProperties": 64,
+      "propertyNames": { "minLength": 1, "maxLength": 128 },
+      "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 512 }
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "token": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+    }
+  },
+  "type": "object",
+  "required": ["formatVersion", "profile", "kind"],
+  "properties": {
+    "formatVersion": { "const": "meridian-evidence-data.v1" },
+    "profile": { "enum": ["telemetry", "audit", "lineage", "provenance"] },
+    "kind": { "$ref": "#/$defs/token" },
+    "evidenceId": { "$ref": "#/$defs/token" },
+    "eventTime": { "$ref": "#/$defs/timestamp" },
+    "observedTime": { "$ref": "#/$defs/timestamp" },
+    "tenant": { "$ref": "#/$defs/token" },
+    "scope": { "$ref": "#/$defs/stringMap" },
+    "otelResource": { "$ref": "#/$defs/jsonObject" },
+    "instrumentationScope": { "$ref": "#/$defs/jsonObject" },
+    "ingestionIdentity": { "$ref": "#/$defs/token" },
+    "sourceProtocolVersion": { "$ref": "#/$defs/token" },
+    "attributes": { "$ref": "#/$defs/jsonObject" },
+    "provenance": { "$ref": "#/$defs/stringMap" },
+    "subject": { "$ref": "#/$defs/reference" },
+    "correlation": { "$ref": "#/$defs/correlation" },
+    "extensions": { "$ref": "#/$defs/jsonObject" }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.provenance.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "allOf": [
+    { "$ref": "meridian.evidence.common.v1.schema.json" },
+    {
+      "type": "object",
+      "required": ["entity", "sources"],
+      "properties": {
+        "profile": { "const": "provenance" },
+        "kind": { "const": "provenance" },
+        "entity": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/reference" },
+        "sources": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/reference" } },
+        "generatedBy": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/reference" },
+        "actor": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/reference" }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

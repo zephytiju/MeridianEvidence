@@ -1,0 +1,42 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "formatVersion": "meridian-package-compatibility.v1",
+  "package": "meridian-storage-evidence",
+  "version": "1.0.0",
+  "python": ">=3.12",
+  "design": {
+    "hldRevision": 60,
+    "catalogsAndPublicInterfacesRevision": 72,
+    "evidenceSection": "5.7"
+  },
+  "dependencies": [
+    {
+      "package": "meridian-storage-core",
+      "constraint": "==1.0.0",
+      "publicContractCommit": "ed533571f502bf530689ad9839f5e2608fee6514",
+      "wheelSha256": "6b8ebb70ee1a8467a96d668878a8eebf826c1c4b63b3832ae70f2c630a8ef4a1",
+      "sdistSha256": "2c44d44569a380f44ea7f797e7fe623d0242fa79b6bc34606d6bad1bc53f2d5a"
+    },
+    {
+      "package": "meridian-storage-semantics",
+      "constraint": "==1.0.0",
+      "publicContractCommit": "62cc5caba415594f99cb8b25146e6854d5aec5bf",
+      "wheelSha256": "837d86846dbf7fd02ce81c9abd715dbe24a6ffb39de593a6cdc46a8d08bd61bc",
+      "sdistSha256": "13d1ede165f7f112565ba5c2e6c666ff837ffc0d658e8b97ae432f688bb29699"
+    }
+  ],
+  "contracts": {
+    "catalog": "evidence",
+    "catalogContractVersion": "1.0.0",
+    "dataFormat": "meridian-evidence-data.v1",
+    "methods": ["append", "create_resource", "publish_schema", "query"],
+    "profiles": ["telemetry", "audit", "lineage", "provenance"]
+  },
+  "boundaries": {
+    "observabilityFacadeOwner": "meridian-storage-plugin-observability",
+    "persistenceOwner": "released Evidence Adapters",
+    "deploymentOwner": "MeridianConstructs",
+    "implementsWorm": false,
+    "implementsNationalSecurityProfile": false
+  }
+}

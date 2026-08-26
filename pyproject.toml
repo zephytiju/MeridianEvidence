@@ -92,7 +92,7 @@ include = [
 [tool.pytest.ini_options]
 addopts = "-ra --strict-markers --strict-config"
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 markers = [
   "conformance: language-neutral contract conformance",
   "integration: Core integration",
@@ -127,4 +127,3 @@ packages = ["meridian_storage.evidence"]
 mypy_path = "src"
 namespace_packages = true
 explicit_package_bases = true
-

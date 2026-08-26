@@ -1,0 +1,28 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "schema": "span",
+  "record": {
+  "formatVersion": "meridian-evidence-data.v1",
+  "profile": "telemetry",
+  "kind": "span",
+  "eventTime": "2026-08-25T12:00:01.000000Z",
+  "observedTime": "2026-08-25T12:00:01.100000Z",
+  "tenant": "tenant-a",
+  "scope": {"environment": "test"},
+  "otelResource": {"service.name": "worker"},
+  "instrumentationScope": {"name": "example.worker"},
+  "attributes": {"job.type": "poll"},
+  "provenance": {},
+  "extensions": {},
+  "traceId": "0123456789abcdef0123456789abcdef",
+  "spanId": "0123456789abcdef",
+  "parentSpanId": "fedcba9876543210",
+  "name": "work.poll",
+  "spanKind": "internal",
+  "startTime": "2026-08-25T12:00:00.000000Z",
+  "endTime": "2026-08-25T12:00:01.000000Z",
+  "status": "ok",
+  "events": [{"name": "received", "time": "2026-08-25T12:00:00.500000Z"}],
+  "links": [{"traceId": "fedcba9876543210fedcba9876543210", "spanId": "fedcba9876543210"}]
+  }
+}

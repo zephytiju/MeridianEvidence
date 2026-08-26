@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.registry.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "type": "object",
+  "required": ["kind", "document"],
+  "properties": {
+    "kind": { "enum": ["schema", "resource", "policy"] },
+    "document": { "type": "object" }
+  },
+  "additionalProperties": false
+}

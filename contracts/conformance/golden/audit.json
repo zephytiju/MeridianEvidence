@@ -1,0 +1,35 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "schema": "audit",
+  "record": {
+  "formatVersion": "meridian-evidence-data.v1",
+  "profile": "audit",
+  "kind": "action",
+  "evidenceId": "audit-0002",
+  "eventTime": "2026-08-25T12:00:02.000000Z",
+  "observedTime": "2026-08-25T12:00:02.000000Z",
+  "tenant": "tenant-a",
+  "scope": {"environment": "test"},
+  "otelResource": {},
+  "instrumentationScope": {},
+  "attributes": {},
+  "provenance": {"adapter": "conformance"},
+  "extensions": {},
+  "subject": {"kind": "resource", "value": "structured:cases.open"},
+  "correlation": {"requestId": "request-0002"},
+  "action": "case.updated",
+  "outcome": "success",
+  "actor": {"kind": "principal", "value": "principal:user-1"},
+  "requestId": "request-0002",
+  "operation": {
+    "kind": "operation",
+    "value": "meridian.structured.put",
+    "version": "1.0.0",
+    "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "changes": {"fieldCount": 2},
+  "policyLabels": ["audit-required"],
+  "correctionOf": {"kind": "audit", "value": "audit-0001"},
+  "bindingProvenance": {"adapter": "conformance"}
+  }
+}

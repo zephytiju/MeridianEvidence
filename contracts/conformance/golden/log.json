@@ -1,0 +1,26 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "schema": "log",
+  "record": {
+  "formatVersion": "meridian-evidence-data.v1",
+  "profile": "telemetry",
+  "kind": "log",
+  "evidenceId": "log-0001",
+  "eventTime": "2026-08-25T12:00:00.000000Z",
+  "observedTime": "2026-08-25T12:00:00.100000Z",
+  "tenant": "tenant-a",
+  "scope": {"environment": "test"},
+  "otelResource": {"service.name": "worker", "service.version": "1.0.0"},
+  "instrumentationScope": {"name": "example.worker", "version": "1.0.0"},
+  "ingestionIdentity": "ingest-0001",
+  "sourceProtocolVersion": "OTLP/1.0",
+  "attributes": {"attempt": 1, "ready": true, "worker": "alpha"},
+  "provenance": {"adapter": "conformance"},
+  "extensions": {},
+  "severity": "INFO",
+  "body": "worker ready",
+  "flags": 1,
+  "traceId": "0123456789abcdef0123456789abcdef",
+  "spanId": "0123456789abcdef"
+  }
+}
