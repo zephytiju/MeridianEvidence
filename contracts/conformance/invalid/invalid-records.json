@@ -1,0 +1,30 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "formatVersion": "meridian-invalid-fixtures.v1",
+  "cases": [
+    {
+      "name": "audit-unrestricted-request-body",
+      "schema": "audit",
+      "expectedRequirement": "record.audit.safe-change-metadata",
+      "data": {"action": "case.updated", "outcome": "success", "changes": {"requestBody": {"secret": "x"}}}
+    },
+    {
+      "name": "lineage-checkpoint-without-key",
+      "schema": "lineage",
+      "expectedRequirement": "record.lineage.checkpoint",
+      "data": {"activity": "train", "status": "checkpoint", "executionId": "execution-1"}
+    },
+    {
+      "name": "log-invalid-trace-id",
+      "schema": "log",
+      "expectedRequirement": "record.correlation.trace-id",
+      "data": {"severity": "INFO", "body": "ready", "traceId": "not-a-trace"}
+    },
+    {
+      "name": "metric-invalid-temporality",
+      "schema": "metric_point",
+      "expectedRequirement": "record.metric.temporality",
+      "data": {"name": "count", "unit": "1", "metricType": "sum", "temporality": "forever"}
+    }
+  ]
+}

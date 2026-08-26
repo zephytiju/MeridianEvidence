@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.metric-point.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "allOf": [
+    { "$ref": "meridian.evidence.common.v1.schema.json" },
+    {
+      "type": "object",
+      "required": ["name", "unit", "metricType", "temporality", "monotonic", "startTime", "endTime", "value", "dimensions", "flags", "exemplars"],
+      "properties": {
+        "profile": { "const": "telemetry" },
+        "kind": { "const": "metric-point" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "unit": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "metricType": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "temporality": { "enum": ["unspecified", "delta", "cumulative"] },
+        "monotonic": { "type": "boolean" },
+        "startTime": { "type": "string", "format": "date-time" },
+        "endTime": { "type": "string", "format": "date-time" },
+        "value": { "oneOf": [{ "type": "number" }, { "type": "object" }] },
+        "dimensions": { "type": "object", "maxProperties": 256 },
+        "flags": { "type": "integer", "minimum": 0 },
+        "exemplars": { "type": "array", "maxItems": 10000, "items": { "type": "object" } }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

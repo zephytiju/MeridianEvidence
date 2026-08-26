@@ -1,0 +1,29 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "schema": "metric_point",
+  "record": {
+  "formatVersion": "meridian-evidence-data.v1",
+  "profile": "telemetry",
+  "kind": "metric-point",
+  "eventTime": "2026-08-25T12:00:01.000000Z",
+  "observedTime": "2026-08-25T12:00:01.100000Z",
+  "tenant": "tenant-a",
+  "scope": {"environment": "test"},
+  "otelResource": {"service.name": "worker"},
+  "instrumentationScope": {"name": "example.worker"},
+  "attributes": {},
+  "provenance": {},
+  "extensions": {},
+  "name": "work.duration",
+  "unit": "ms",
+  "metricType": "histogram",
+  "temporality": "delta",
+  "monotonic": false,
+  "startTime": "2026-08-25T12:00:00.000000Z",
+  "endTime": "2026-08-25T12:00:01.000000Z",
+  "value": {"bounds": [10.0, 25.0], "count": 3, "counts": [1, 1, 1], "sum": 42.0},
+  "dimensions": {"worker": "alpha"},
+  "flags": 0,
+  "exemplars": [{"spanId": "0123456789abcdef", "traceId": "0123456789abcdef0123456789abcdef", "value": 20.0}]
+  }
+}

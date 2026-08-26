@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.policy.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "type": "object",
+  "required": ["label", "requiredFields", "redactionRules", "atomicity", "retention", "accessScopes", "maximumAttributes", "maximumAttributeValueBytes", "maximumRecordBytes", "cardinalityBudget", "queueFailure", "extensions"],
+  "properties": {
+    "label": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "requiredFields": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "redactionRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "strategy"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1, "maxLength": 512 },
+          "strategy": { "enum": ["reject", "redact", "drop"] },
+          "replacement": { "type": "string", "minLength": 1, "maxLength": 256 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "atomicity": { "enum": ["best-effort", "required"] },
+    "retention": {
+      "type": ["object", "null"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "classification": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "minimumDays": { "type": "integer", "minimum": 0 },
+        "maximumDays": { "type": "integer", "minimum": 0 },
+        "disposition": { "enum": ["expire", "archive", "review"] },
+        "extensions": { "type": "object" }
+      },
+      "required": ["label", "disposition", "extensions"],
+      "additionalProperties": false
+    },
+    "accessScopes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 256 } },
+    "maximumAttributes": { "type": "integer", "minimum": 1, "maximum": 10000 },
+    "maximumAttributeValueBytes": { "type": "integer", "minimum": 1 },
+    "maximumRecordBytes": { "type": "integer", "minimum": 1 },
+    "cardinalityBudget": { "type": "integer", "minimum": 1 },
+    "queueFailure": { "enum": ["drop", "block", "fail"] },
+    "extensions": { "type": "object" }
+  },
+  "additionalProperties": false
+}

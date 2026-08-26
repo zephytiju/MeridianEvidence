@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.log.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "allOf": [
+    { "$ref": "meridian.evidence.common.v1.schema.json" },
+    {
+      "type": "object",
+      "required": ["severity", "body", "flags"],
+      "properties": {
+        "profile": { "const": "telemetry" },
+        "kind": { "const": "log" },
+        "severity": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "body": true,
+        "flags": { "type": "integer", "minimum": 0 },
+        "traceId": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "spanId": { "type": "string", "pattern": "^[0-9a-f]{16}$" }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

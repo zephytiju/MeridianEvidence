@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.span.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "allOf": [
+    { "$ref": "meridian.evidence.common.v1.schema.json" },
+    {
+      "type": "object",
+      "required": ["traceId", "spanId", "name", "spanKind", "startTime", "endTime", "status", "events", "links"],
+      "properties": {
+        "profile": { "const": "telemetry" },
+        "kind": { "const": "span" },
+        "traceId": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "spanId": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "parentSpanId": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "spanKind": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "startTime": { "type": "string", "format": "date-time" },
+        "endTime": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "events": { "type": "array", "maxItems": 10000, "items": { "type": "object" } },
+        "links": { "type": "array", "maxItems": 10000, "items": { "type": "object" } }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

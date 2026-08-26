@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+
 name: CI
 
 on:
@@ -16,23 +17,77 @@ concurrency:
 
 jobs:
   quality:
+    name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.12", "3.13", "3.14"]
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - run: python -m pip install --upgrade pip
-      - run: python -m pip install '.[test]'
-      - run: ruff format --check src tests
-      - run: ruff check src tests
-      - run: mypy src
-      - run: pytest
+      - name: Install package and test tools
+        run: python -m pip install --disable-pip-version-check '.[test]'
+      - name: Check formatting
+        run: ruff format --check src tests scripts
+      - name: Lint
+        run: ruff check src tests scripts
+      - name: Type check
+        run: mypy src
+      - name: Check public contracts
+        run: python scripts/verify_contracts.py
+      - name: Test
+        run: pytest --cov=meridian_storage.evidence --cov-report=term-missing --cov-report=xml
 
+  package:
+    name: Reproducible package
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install package and build tools
+        run: python -m pip install --disable-pip-version-check '.[test]'
+      - name: Fix reproducible-build timestamp
+        run: echo "SOURCE_DATE_EPOCH=$(git show -s --format=%ct HEAD)" >> "$GITHUB_ENV"
+      - name: Build twice
+        run: |
+          python -m build --no-isolation --outdir .artifacts/first
+          python -m build --no-isolation --outdir .artifacts/second
+      - name: Compare builds
+        run: python scripts/compare_artifacts.py .artifacts/first .artifacts/second
+      - name: Verify package contents
+        run: python scripts/verify_artifacts.py .artifacts/first
+      - name: Generate SPDX SBOM
+        run: python scripts/generate_sbom.py .artifacts/first .artifacts/meridian-storage-evidence-1.0.0.spdx.json
+      - name: Clean-install wheel with released dependencies
+        run: |
+          python -m venv .artifacts/venv
+          WHEEL_PATH=$(find .artifacts/first -name '*.whl' -type f -print -quit)
+          .artifacts/venv/bin/python -m pip install --disable-pip-version-check "$WHEEL_PATH"
+          cd /tmp
+          "$GITHUB_WORKSPACE/.artifacts/venv/bin/python" -I -c 'from importlib.metadata import entry_points; from meridian_storage.evidence import EvidenceCatalogProvider, EvidenceSchemaProvider; assert EvidenceCatalogProvider().manifest().catalog_name == "evidence"; assert EvidenceSchemaProvider().load().resources; assert any(item.name == "evidence" for item in entry_points(group="meridian_storage.catalogs"))'
+      - name: Upload verified artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: meridian-storage-evidence-${{ github.sha }}
+          path: |
+            .artifacts/first/*
+            .artifacts/meridian-storage-evidence-*.spdx.json
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30

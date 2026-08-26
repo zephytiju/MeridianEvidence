@@ -1,0 +1,25 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "schema": "provenance",
+  "record": {
+  "formatVersion": "meridian-evidence-data.v1",
+  "profile": "provenance",
+  "kind": "provenance",
+  "eventTime": "2026-08-25T12:00:04.000000Z",
+  "observedTime": "2026-08-25T12:00:04.000000Z",
+  "tenant": "tenant-a",
+  "scope": {"environment": "test"},
+  "otelResource": {},
+  "instrumentationScope": {},
+  "attributes": {},
+  "provenance": {},
+  "extensions": {},
+  "entity": {"kind": "artifact", "value": "object:models.release", "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"},
+  "sources": [
+    {"kind": "resource", "value": "structured:training.features", "version": "7"},
+    {"kind": "resource", "value": "structured:training.labels", "version": "3"}
+  ],
+  "generatedBy": {"kind": "operation", "value": "meridian.structured.query", "digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"},
+  "actor": {"kind": "principal", "value": "principal:trainer"}
+  }
+}

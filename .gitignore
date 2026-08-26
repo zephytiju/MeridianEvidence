@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 .coverage
+.artifacts/
 .hypothesis/
 .mypy_cache/
 .pytest_cache/
@@ -10,4 +11,3 @@ __pycache__/
 build/
 dist/
 *.egg-info/
-

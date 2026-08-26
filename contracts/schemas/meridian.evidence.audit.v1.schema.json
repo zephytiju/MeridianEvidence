@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.meridian.dev/evidence/meridian.evidence.audit.v1.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "allOf": [
+    { "$ref": "meridian.evidence.common.v1.schema.json" },
+    {
+      "type": "object",
+      "required": ["action", "outcome", "changes", "policyLabels", "bindingProvenance"],
+      "properties": {
+        "profile": { "const": "audit" },
+        "kind": { "const": "action" },
+        "action": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "outcome": { "enum": ["success", "failure", "denied", "unknown"] },
+        "actor": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/reference" },
+        "requestId": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "operation": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/reference" },
+        "changes": {
+          "type": "object",
+          "maxProperties": 128,
+          "propertyNames": {
+            "not": { "enum": ["request", "response", "requestBody", "responseBody", "request_body", "response_body"] }
+          }
+        },
+        "policyLabels": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 256 } },
+        "correctionOf": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/reference" },
+        "bindingProvenance": { "$ref": "meridian.evidence.common.v1.schema.json#/$defs/stringMap" }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}
