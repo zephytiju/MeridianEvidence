@@ -82,7 +82,7 @@ jobs:
           cd /tmp
           "$GITHUB_WORKSPACE/.artifacts/venv/bin/python" -I -c 'from importlib.metadata import entry_points; from meridian_storage.evidence import EvidenceCatalogProvider, EvidenceSchemaProvider; assert EvidenceCatalogProvider().manifest().catalog_name == "evidence"; assert EvidenceSchemaProvider().load().resources; assert any(item.name == "evidence" for item in entry_points(group="meridian_storage.catalogs"))'
       - name: Upload verified artifacts
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: meridian-storage-evidence-${{ github.sha }}
           path: |
