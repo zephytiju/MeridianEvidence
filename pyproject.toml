@@ -42,9 +42,9 @@ test = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/zephytiju/meridian-storage-evidence#readme"
-Issues = "https://github.com/zephytiju/meridian-storage-evidence/issues"
-Repository = "https://github.com/zephytiju/meridian-storage-evidence"
+Documentation = "https://github.com/zephytiju/MeridianEvidence#readme"
+Issues = "https://github.com/zephytiju/MeridianEvidence/issues"
+Repository = "https://github.com/zephytiju/MeridianEvidence"
 
 [project.entry-points."meridian_storage.catalogs"]
 evidence = "meridian_storage.evidence.catalogs:EvidenceCatalogProvider"
