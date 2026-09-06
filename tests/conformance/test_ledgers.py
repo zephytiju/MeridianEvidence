@@ -31,8 +31,8 @@ def test_compatibility_ledger_pins_released_dependencies_and_boundaries() -> Non
     ledger = _json(ROOT / "compatibility.json")
     assert ledger["version"] == evidence.__version__  # type: ignore[index]
     assert [item["constraint"] for item in ledger["dependencies"]] == [  # type: ignore[index]
-        "==1.0.0",
-        "==1.0.0",
+        "==1.0.1",
+        "==2.0.0",
     ]
     assert ledger["design"] == {  # type: ignore[index]
         "hldRevision": 60,

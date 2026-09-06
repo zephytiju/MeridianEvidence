@@ -60,7 +60,13 @@ jobs:
           python scripts/verify_artifacts.py .artifacts/first
           mkdir release
           cp .artifacts/first/* release/
-          python scripts/generate_sbom.py .artifacts/first release/meridian-storage-evidence-1.0.0.spdx.json
+          python scripts/generate_sbom.py .artifacts/first release/meridian-storage-evidence-1.0.1.spdx.json
+      - name: Verify installed release with public dependencies
+        run: |
+          python -m venv .artifacts/installed
+          .artifacts/installed/bin/python -m pip install release/*.whl
+          .artifacts/installed/bin/python -m pip check
+          .artifacts/installed/bin/python -I scripts/verify_installed.py contracts/conformance/released-normalization.v1.json
       - name: Attest release provenance
         uses: actions/attest-build-provenance@96b4a1ef7235a096b17240c259729fdd70c83d45 # v2
         with:
