@@ -1,0 +1,165 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "baseline": "meridian-storage-evidence==1.0.0; core==1.0.0; semantics==1.0.0 (public PyPI)",
+  "snapshot": {
+    "error": {
+      "category": "VALIDATION",
+      "code": "MERIDIAN_EVIDENCE_INVALID_DEFINITION",
+      "message": "unsupported evidence Expression method 'delete'",
+      "requirement": "expression.method",
+      "retryable": false
+    },
+    "operations": {
+      "atomic": {
+        "fingerprint": "sha256:ec5d34f93fbb5a205c0f534d4099e5e767a09bd3e315c19938942e5a4b4c2ee9",
+        "value": {
+          "catalog": "evidence",
+          "formatVersion": "meridian-operation.v1",
+          "idempotent": false,
+          "input": {
+            "data": {
+              "action": "write"
+            },
+            "requireAtomic": true,
+            "resource": "audit.actions"
+          },
+          "operationContract": "meridian.evidence.append",
+          "operationVersion": "1.0.0",
+          "readOnly": false,
+          "requirements": [
+            {
+              "guarantees": [
+                "append-only",
+                "atomic-evidence"
+              ],
+              "minimumLimits": {},
+              "operationContract": "meridian.evidence.append",
+              "operationVersion": "1.0.0"
+            }
+          ],
+          "resources": [
+            {
+              "catalog": "evidence",
+              "name": "actions",
+              "namespace": "audit"
+            }
+          ]
+        }
+      },
+      "batch": {
+        "fingerprint": "sha256:4a3c1253d84ce7d9e2cecfcac7ab7b0ecbb96cbe764a537db15e4edb703d483a",
+        "value": {
+          "catalog": "evidence",
+          "formatVersion": "meridian-operation.v1",
+          "idempotent": true,
+          "input": {
+            "data": [
+              {
+                "evidenceId": "a"
+              },
+              {
+                "evidenceId": "b"
+              }
+            ],
+            "requireAtomic": false,
+            "resource": "runtime.logs"
+          },
+          "operationContract": "meridian.evidence.append",
+          "operationVersion": "1.0.0",
+          "readOnly": false,
+          "requirements": [
+            {
+              "guarantees": [
+                "append-only"
+              ],
+              "minimumLimits": {},
+              "operationContract": "meridian.evidence.append",
+              "operationVersion": "1.0.0"
+            }
+          ],
+          "resources": [
+            {
+              "catalog": "evidence",
+              "name": "logs",
+              "namespace": "runtime"
+            }
+          ]
+        }
+      },
+      "query": {
+        "fingerprint": "sha256:96139b6a933847c4dcae7e386adfc4f2d5a99e688400735564b0a0488f4f070e",
+        "value": {
+          "catalog": "evidence",
+          "formatVersion": "meridian-operation.v1",
+          "idempotent": true,
+          "input": {
+            "limit": 50,
+            "orderBy": [],
+            "resource": "runtime.logs",
+            "select": [],
+            "where": {
+              "severity": {
+                "eq": "INFO"
+              }
+            }
+          },
+          "operationContract": "meridian.evidence.query",
+          "operationVersion": "1.0.0",
+          "readOnly": true,
+          "requirements": [
+            {
+              "guarantees": [
+                "scope-isolation"
+              ],
+              "minimumLimits": {},
+              "operationContract": "meridian.evidence.query",
+              "operationVersion": "1.0.0"
+            }
+          ],
+          "resources": [
+            {
+              "catalog": "evidence",
+              "name": "logs",
+              "namespace": "runtime"
+            }
+          ]
+        }
+      },
+      "scalar": {
+        "fingerprint": "sha256:32cdcfbed7ebd52255e59e31d7cb57742dcd38984c891fd2268f0bb3e1ab3505",
+        "value": {
+          "catalog": "evidence",
+          "formatVersion": "meridian-operation.v1",
+          "idempotent": false,
+          "input": {
+            "data": {
+              "body": "ready"
+            },
+            "requireAtomic": false,
+            "resource": "runtime.logs"
+          },
+          "operationContract": "meridian.evidence.append",
+          "operationVersion": "1.0.0",
+          "readOnly": false,
+          "requirements": [
+            {
+              "guarantees": [
+                "append-only"
+              ],
+              "minimumLimits": {},
+              "operationContract": "meridian.evidence.append",
+              "operationVersion": "1.0.0"
+            }
+          ],
+          "resources": [
+            {
+              "catalog": "evidence",
+              "name": "logs",
+              "namespace": "runtime"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

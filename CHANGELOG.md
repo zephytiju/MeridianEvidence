@@ -2,6 +2,11 @@
 
 # Changelog
 
+## 1.0.1
+
+- Resolve against released Core 1.0.1 and Semantics 2.0.0; refresh compatibility digests and SBOM inputs.
+- Verify installed-package compatibility while preserving Evidence V1 schemas, operations, fingerprints, errors, scope/atomic requirements, and OTel behavior.
+
 ## 1.0.0 - 2026-08-25
 
 - Added the complete Meridian V1 Evidence Catalog provider and schema provider.
