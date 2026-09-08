@@ -56,7 +56,7 @@ def main() -> None:
             "meridian-storage-semantics",
         )
     }
-    assert tuple(versions.values()) == ("1.0.1", "1.0.1", "2.0.0")
+    assert tuple(versions.values()) == ("1.0.2", "1.1.0", "2.0.1")
     print(json.dumps({"installedVersions": versions, "baselineMatched": True}, sort_keys=True))
 
 

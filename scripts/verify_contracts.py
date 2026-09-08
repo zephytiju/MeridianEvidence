@@ -59,11 +59,11 @@ def main() -> int:
     pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     project = pyproject["project"]
     assert project["name"] == "meridian-storage-evidence"
-    assert project["version"] == evidence.__version__ == "1.0.1"
+    assert project["version"] == evidence.__version__ == "1.0.2"
     assert project["license"] == "Apache-2.0"
     assert project["dependencies"] == [
-        "meridian-storage-core==1.0.1",
-        "meridian-storage-semantics==2.0.0",
+        "meridian-storage-core>=1.1.0,<2",
+        "meridian-storage-semantics>=2.0.1,<3",
     ]
     entry_points = project["entry-points"]
     assert entry_points["meridian_storage.catalogs"]["evidence"].endswith(

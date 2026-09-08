@@ -3,7 +3,7 @@
   "formatVersion": "meridian-catalog-manifest.v1",
   "catalogName": "evidence",
   "packageName": "meridian-storage-evidence",
-  "packageVersion": "1.0.1",
+  "packageVersion": "1.0.2",
   "catalogContractVersion": "1.0.0",
   "operations": [
     {

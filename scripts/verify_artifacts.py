@@ -17,6 +17,7 @@ REQUIRED_WHEEL_SUFFIXES = {
     "LICENSE",
     "NOTICE",
     "meridian_storage/evidence/compatibility.json",
+    "meridian_storage/evidence/requirements-validation.lock",
     "meridian_storage/evidence/contracts/catalogs/meridian-evidence-catalog.v1.json",
     "meridian_storage/evidence/contracts/public-api/meridian-evidence.v1.json",
     "meridian_storage/evidence/contracts/schemas/meridian.evidence.common.v1.schema.json",
@@ -32,6 +33,7 @@ REQUIRED_SDIST_SUFFIXES = {
     "SECURITY.md",
     "compatibility.json",
     "pyproject.toml",
+    "requirements-validation.lock",
     "scripts/verify_contracts.py",
     "src/meridian_storage/evidence/__init__.py",
     "tests/conformance/test_schemas_and_goldens.py",
@@ -63,11 +65,11 @@ def verify_wheel(path: Path) -> dict[str, Any]:
         metadata_name = next(name for name in names if name.endswith(".dist-info/METADATA"))
         metadata = Parser().parsestr(archive.read(metadata_name).decode("utf-8"))
         assert metadata["Name"] == "meridian-storage-evidence"
-        assert metadata["Version"] == "1.0.1"
+        assert metadata["Version"] == "1.0.2"
         assert metadata["License-Expression"] == "Apache-2.0"
         dependencies = set(metadata.get_all("Requires-Dist", []))
-        assert "meridian-storage-core==1.0.1" in dependencies
-        assert "meridian-storage-semantics==2.0.0" in dependencies
+        assert "meridian-storage-core<2,>=1.1.0" in dependencies
+        assert "meridian-storage-semantics<3,>=2.0.1" in dependencies
         entry_name = next(name for name in names if name.endswith(".dist-info/entry_points.txt"))
         entry_points = archive.read(entry_name).decode("utf-8")
         assert "meridian_storage.catalogs" in entry_points
