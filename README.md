@@ -8,13 +8,14 @@ query-helper, and low-level OpenTelemetry bridge contracts. It never selects an 
 endpoint, Collector, or deployment topology.
 
 The package is licensed under Apache License 2.0 and targets Python 3.12 or newer. Its released
-dependencies are pinned to `meridian-storage-core==1.0.1` and
-`meridian-storage-semantics==2.0.0`.
+dependencies require `meridian-storage-core>=1.1.0,<2` and
+`meridian-storage-semantics>=2.0.1,<3`. The exact tested public closure is in
+`requirements-validation.lock`; see [compatibility](docs/compatibility.md).
 
 ## Install
 
 ```console
-python -m pip install meridian-storage-evidence==1.0.1
+python -m pip install meridian-storage-evidence==1.0.2
 ```
 
 ## Mapping-first Catalog API

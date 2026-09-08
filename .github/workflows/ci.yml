@@ -34,7 +34,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - name: Install package and test tools
-        run: python -m pip install --disable-pip-version-check '.[test]'
+        run: |
+          python -m pip install --disable-pip-version-check --require-hashes -r requirements-validation.lock
+          python -m pip install --disable-pip-version-check '.[test]'
+          python -m pip check
       - name: Check formatting
         run: ruff format --check src tests scripts
       - name: Lint
@@ -61,7 +64,10 @@ jobs:
           python-version: "3.13"
           cache: pip
       - name: Install package and build tools
-        run: python -m pip install --disable-pip-version-check '.[test]'
+        run: |
+          python -m pip install --disable-pip-version-check --require-hashes -r requirements-validation.lock
+          python -m pip install --disable-pip-version-check '.[test]'
+          python -m pip check
       - name: Fix reproducible-build timestamp
         run: echo "SOURCE_DATE_EPOCH=$(git show -s --format=%ct HEAD)" >> "$GITHUB_ENV"
       - name: Build twice
@@ -73,11 +79,12 @@ jobs:
       - name: Verify package contents
         run: python scripts/verify_artifacts.py .artifacts/first
       - name: Generate SPDX SBOM
-        run: python scripts/generate_sbom.py .artifacts/first .artifacts/meridian-storage-evidence-1.0.1.spdx.json
+        run: python scripts/generate_sbom.py .artifacts/first .artifacts/meridian-storage-evidence-1.0.2.spdx.json
       - name: Clean-install wheel with released dependencies
         run: |
           python -m venv .artifacts/venv
           WHEEL_PATH=$(find .artifacts/first -name '*.whl' -type f -print -quit)
+          .artifacts/venv/bin/python -m pip install --require-hashes -r requirements-validation.lock
           .artifacts/venv/bin/python -m pip install --disable-pip-version-check "$WHEEL_PATH"
           .artifacts/venv/bin/python -m pip check
           .artifacts/venv/bin/python -I scripts/verify_installed.py contracts/conformance/released-normalization.v1.json

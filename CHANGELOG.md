@@ -2,6 +2,12 @@
 
 # Changelog
 
+## 1.0.2
+
+- Admit the public Core 1.1.0 / Semantics 2.0.1 closure using bounded API dependencies.
+- Separate the exact hash-verified validation lock from runtime compatibility metadata.
+- Preserve Evidence Data, operations, atomic placement checks and normalization fingerprints.
+
 ## 1.0.1
 
 - Resolve against released Core 1.0.1 and Semantics 2.0.0; refresh compatibility digests and SBOM inputs.

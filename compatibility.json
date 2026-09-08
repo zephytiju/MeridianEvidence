@@ -2,7 +2,7 @@
   "$comment": "SPDX-License-Identifier: Apache-2.0",
   "formatVersion": "meridian-package-compatibility.v1",
   "package": "meridian-storage-evidence",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "python": ">=3.12",
   "design": {
     "hldRevision": 60,
@@ -12,17 +12,11 @@
   "dependencies": [
     {
       "package": "meridian-storage-core",
-      "constraint": "==1.0.1",
-      "publicContractCommit": "ed9f1c140130cd235b9e64fe117cad8b9c40f30a",
-      "wheelSha256": "5c873da941b7b5e14ca0d852d723f919e88a28bbf6cc48ae0ef985b64cac9a97",
-      "sdistSha256": "9244a6fac589f402a82037f08e2d57a5ae4f9747c7c825b46cedf8c6d67f2b80"
+      "constraint": ">=1.1.0,<2"
     },
     {
       "package": "meridian-storage-semantics",
-      "constraint": "==2.0.0",
-      "publicContractCommit": "1192eb21c3a9abac779508f52ea156df63f7e980",
-      "wheelSha256": "86c5f5c4d7f7af045b70e5e7480b21d794d166c37d2d76acb54c4720d49732d5",
-      "sdistSha256": "a62cd1255e04a030847afa1e6553434dfe5efdf33dd7878401141b1c5e80c19b"
+      "constraint": ">=2.0.1,<3"
     }
   ],
   "contracts": {
@@ -48,5 +42,6 @@
     "deploymentOwner": "MeridianConstructs",
     "implementsWorm": false,
     "implementsNationalSecurityProfile": false
-  }
+  },
+  "validationLock": "requirements-validation.lock"
 }
